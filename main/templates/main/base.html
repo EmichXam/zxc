@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content='width=device-width'>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=ABeeZee&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  {% load static %}
+  <link href="{% static 'main/css/style1.css'%}" rel="stylesheet">
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <header  id="header" class='container'>
+        <div class="header-inner">
+          <a class="header-link" href="{% url 'main:home' %}">
+            <div class="header-logo-full">
+              <div class="header-logo">
+                  <h2 class="header-logo-text">EI</h2>
+              </div>
+              <p class="header-logo-text1">Ez informatics</p>
+            </div>
+          </a>
+          <a class="burger">
+            <span></span>
+          </a>
+          <nav class="nav">
+            <a id="{% if request.path == '/' %}current{% endif %}" class='nav-link' href="{% url 'main:home' %}">Главная</a>
+            <a id="{% if request.path == '/section' %}current{% endif %}" class='nav-link' href="{% url 'main:section' %}">Разделы</a>
+            <a id="{% if request.path == '/tests' %}current{% endif %}" class='nav-link' href="{% url 'main:tests' %}">Тесты</a>
+            <a id="{% if request.path == '/about' %}current{% endif %}" class='nav-link' href="{% url 'main:about' %}">О нас</a>
+          </nav>
+        </div>
+    </header>
+
+    <content class='content'>
+      <div class="conteiner">
+        {% block content %}{% endblock %}
+      </div>
+    </content>
+
+  <script>
+    window.onscroll = function() {myFunction()};
+
+    function myFunction() {
+      if (document.documentElement.scrollTop > 30) {
+        document.getElementById("header").className = "header-fixed";
+      } else {
+        document.getElementById("header").className = "container";
+      }
+    }
+  </script>
+</body>
+</html>

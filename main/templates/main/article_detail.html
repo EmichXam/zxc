@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% block title %}
+  {{ object.article_title }}
+{% endblock %}
+{% block content %}
+
+    <div class="content-bigbox">
+        <h1 class="content-bigbox-text-h">{{ object.article_title }}</h1>
+        <p class="content-bigbox-text">{{ object.article_text }}</p>
+        <div class="content-box-link-shell-1">
+          <a class="content-box-link-3" href="{{ object.get_test_url }}">Пройти тест по теме?</a>
+        </div>
+    </div>
+
+    <div class="content-bigbox">
+      <form action="{{object.get_absolute_url }}/leave_comment" method="POST">
+        {% csrf_token %}
+        <input class="content-comment-input" type="text" required placeholder="Никнейм" name="name"><br>
+        <textarea class="content-comment-input" cols="30" rows="10" required placeholder="Текст комментария" name="text"></textarea><br>
+        <button class="content-comment-button" type="submit">Оставить комментарий</button>
+      </form>
+    </div>
+    <div class="content-bigbox">
+      {% if comments %}
+      {% for comment in comments %}
+      <div class="content-comment">
+        <h4 class="content-comment-h">{{ comment.author_name }}</h4>
+        <p class="content-comment-p">{{ comment.text }}</p>
+      </div>
+      {% endfor %}
+      {% else %}
+      <p>Нет комментариев</p>
+      {% endif %}
+    </div>
+    
+{% endblock %}

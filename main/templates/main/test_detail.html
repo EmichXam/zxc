@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+
+{% block title %}
+  {{ slug }}
+{% endblock %}
+{% block content %}
+  <form action="/tests/{{slug}}/leave_test" method="POST">
+    {% csrf_token %}
+    {{ form.username }}
+  	{% for test in tests %}
+      <div class="content-bigbox">
+          <h1 class="content-bigbox-text-h">{{ test.question }}</h1>
+          <input id="1" type="radio" name="{{ test.question }}" value="1"><label for="1">{{ test.answer1 }}</label>
+          <input id="2" type="radio" name="{{ test.question }}" value="2"><label for="2">{{ test.answer2 }}</label>
+          <input id="3" type="radio" name="{{ test.question }}" value="3"><label for="3">{{ test.answer3 }}</label>
+          <input id="4" type="radio" name="{{ test.question }}" value="4"><label for="4">{{ test.answer4 }}</label>
+      </div>
+    {% endfor %}
+    <div class="content-bigbox">
+      <button type="submit">Отправить</button>
+    </div>
+  </form>
+{% endblock %}
